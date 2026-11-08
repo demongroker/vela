@@ -4,7 +4,9 @@ Newest first. Each entry describes one reviewable step.
 
 ## Unreleased
 
-### Next/Previous actually advance
+Nothing yet.
+
+### 0.1.24 — Next/Previous advance; subtitle search is relevant
 - **fix(player): manual Next/Previous no longer gets swallowed by auto-play.** With
   "Play the next file automatically" on (the default), tapping Next called `playFile`,
   which made mpv emit `END_FILE` for the file it was interrupting. The auto-advance
@@ -17,8 +19,6 @@ Newest first. Each entry describes one reviewable step.
   advancing, deleting the current file, or toggling shuffle, the buttons could stay
   hidden (or point at a stale position). A `queueVersion` counter now bumps on every
   queue or current-file change and the controls re-read it.
-
-### Subtitle search returns relevant results
 - **feat(subtitles): rank hits by how well they match the query.** `rank()` now scores
   each hit by token overlap with the cleaned query before falling back to
   format→rating→downloads, so a titled search surfaces the actual film instead of a

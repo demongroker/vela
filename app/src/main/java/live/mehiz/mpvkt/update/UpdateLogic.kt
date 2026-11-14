@@ -5,6 +5,7 @@ package live.mehiz.mpvkt.update
  * Kept out of [Updater] on purpose: a wrong answer here means the phone either
  * misses an update or installs a truncated APK.
  */
+@Suppress("TooManyFunctions")  // small, pure, single-purpose helpers
 object UpdateLogic {
 
   /** A version parsed out of a release tag, a versionName or a git tag. */
@@ -118,16 +119,11 @@ object UpdateLogic {
    */
   fun pickSha(names: List<String>, preferArm64: Boolean = false): String? {
     val apk = pickApk(names, preferArm64)
-    if (apk != null) {
-      names.firstOrNull { it == "$apk.sha256" }?.let { return it }
-      return names.firstOrNull { it.endsWith(".apk.sha256") }
-    }
-    // No APK name to pair with (older releases published checksums only): honour the
-    // same arm64/universal preference rather than always assuming universal.
-    if (preferArm64) {
-      names.firstOrNull { it.endsWith(".apk.sha256") && it.contains("arm64") }?.let { return it }
-    }
-    return names.firstOrNull { it.endsWith(".apk.sha256") && !it.contains("arm64") }
+    val paired = apk?.let { chosen -> names.firstOrNull { it == "$chosen.sha256" } }
+    // No matching APK name (older releases published checksums only): honour the same
+    // arm64/universal preference rather than always assuming universal.
+    return paired
+      ?: names.firstOrNull { it.endsWith(".apk.sha256") && (it.contains("arm64") == preferArm64) }
       ?: names.firstOrNull { it.endsWith(".apk.sha256") }
   }
 

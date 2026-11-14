@@ -11,6 +11,7 @@ import javax.crypto.spec.PBEKeySpec
  * The PIN is never stored: only a salted PBKDF2 hash. Verification compares in constant
  * time, and verification failures are indistinguishable from a wrong PIN by design.
  */
+@Suppress("TooManyFunctions")  // small, pure, single-purpose helpers
 object LibraryLock {
 
   /** Shortest PIN we accept. Four digits is the smallest that is still usable on a phone. */

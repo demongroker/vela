@@ -19,7 +19,7 @@ android {
 
   defaultConfig {
     applicationId = "app.vela.player"
-    minSdk = 21
+    minSdk = 23
     targetSdk = 36
     versionCode = 362
     versionName = "0.1.25"
@@ -95,9 +95,6 @@ android {
     sourceCompatibility = JavaVersion.VERSION_17
     targetCompatibility = JavaVersion.VERSION_17
   }
-  kotlinOptions {
-    jvmTarget = "17"
-  }
   buildFeatures {
     compose = true
     viewBinding = true
@@ -132,6 +129,7 @@ android {
 
 kotlin {
   compilerOptions {
+    jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17)
     freeCompilerArgs.addAll("-Xwhen-guards", "-Xcontext-parameters")
   }
 }

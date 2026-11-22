@@ -6,11 +6,11 @@ import android.content.Intent
 import android.util.Log
 import android.widget.Toast
 import androidx.core.content.FileProvider
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
-import java.io.File
 import live.mehiz.mpvkt.BuildConfig
 import live.mehiz.mpvkt.R
+import java.io.File
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 /**
  * Share the installed APK itself, so another phone can sideload the exact same build.

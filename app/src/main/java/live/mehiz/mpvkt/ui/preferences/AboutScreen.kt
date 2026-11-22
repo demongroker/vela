@@ -21,6 +21,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalClipboardManager
@@ -33,6 +34,7 @@ import androidx.core.net.toUri
 import com.mikepenz.aboutlibraries.ui.compose.m3.LibrariesContainer
 import compose.icons.SimpleIcons
 import compose.icons.simpleicons.Github
+import kotlinx.coroutines.launch
 import kotlinx.serialization.Serializable
 import live.mehiz.mpvkt.BuildConfig
 import live.mehiz.mpvkt.R
@@ -40,6 +42,7 @@ import live.mehiz.mpvkt.presentation.Screen
 import live.mehiz.mpvkt.presentation.crash.CrashActivity.Companion.collectDeviceInfo
 import live.mehiz.mpvkt.ui.theme.spacing
 import live.mehiz.mpvkt.ui.utils.LocalBackStack
+import live.mehiz.mpvkt.update.ShareApp
 import me.zhanghai.compose.preference.Preference
 import me.zhanghai.compose.preference.ProvidePreferenceLocals
 
@@ -51,6 +54,7 @@ object AboutScreen : Screen {
     val context = LocalContext.current
     val clipboard = LocalClipboardManager.current
     val backstack = LocalBackStack.current
+    val scope = rememberCoroutineScope()
     Scaffold(
       topBar = {
         TopAppBar(
@@ -100,6 +104,11 @@ object AboutScreen : Screen {
             onClick = {
               clipboard.setText(AnnotatedString(collectDeviceInfo()))
             },
+          )
+          Preference(
+            title = { Text(text = stringResource(id = R.string.pref_about_share_app)) },
+            summary = { Text(text = stringResource(id = R.string.pref_about_share_app_summary)) },
+            onClick = { scope.launch { ShareApp.share(context) } },
           )
           Preference(
             title = { Text(text = stringResource(id = R.string.pref_about_oss_libraries)) },

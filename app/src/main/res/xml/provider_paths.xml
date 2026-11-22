@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-  FileProvider shares exactly two things:
+  FileProvider shares exactly three things:
     1. the update APK the updater downloads into external-files/Download,
-    2. the crash log file in files/.
+    2. the crash log file in files/,
+    3. the installed APK that ShareApp copies into cache/shared for the share sheet.
   Previously every path in cache/, files/ and external-files/ was readable by whatever app
   received a share, which handed out far more than the updater and the crash reporter need.
 -->
@@ -18,4 +19,8 @@
     <cache-path
         name="crash_logs"
         path="mpvKt_logs.txt" />
+    <!-- ShareApp copies the installed /data/app APK here so it can be shared as a file. -->
+    <cache-path
+        name="shared_apk"
+        path="shared/" />
 </paths>

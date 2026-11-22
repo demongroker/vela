@@ -163,6 +163,9 @@
     <string name="pref_about_summary">Acknowledgments, licenses</string>
     <string name="pref_about_app_version">App version</string>
     <string name="pref_about_app_version_formatted" translatable="false">%s %s</string>
+    <string name="pref_about_share_app">Share this app</string>
+    <string name="pref_about_share_app_summary">Send this installed build to another device</string>
+    <string name="pref_about_share_failed">Could not share the app: %s</string>
     <string name="pref_about_oss_libraries">Open source libraries</string>
     <string name="pref_about_privacy_policy">Privacy policy</string>
 

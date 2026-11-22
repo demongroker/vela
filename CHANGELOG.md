@@ -2,6 +2,23 @@
 
 Newest first. Each entry describes one reviewable step.
 
+## 0.1.31
+
+### Fixed — blank first frame / launch `NoSuchMethodError`
+
+- **Root cause was R8, not the dependency pin.** `navigation3-ui` alpha06 calls
+  `NavigationEventHandlerKt.NavigationEventHandler(Function0, Function2, Composer, int, int)`.
+  Under `proguard-android-optimize.txt` R8 was rewriting that Compose bridge: 0.1.26 shipped an
+  **empty** `NavigationEventHandlerKt`, and 0.1.30 carried the method in
+  `androidx.tracing.Trace` with a rewritten `(Function0, Function2, ComposerImpl, int)` signature.
+  Either way the call site in `NavDisplay` resolved to nothing and the first frame came up blank.
+- The alpha05 pin stays (it is the version `navigation3-ui` alpha06 was compiled against), and the
+  release rules now keep the original ABI:
+  `NavigationEventHandlerKt`, `LocalNavigationEventDispatcherOwner`, `androidx.navigation3.ui.**`
+  and `androidx.navigation3.runtime.**`.
+- **Verified in the built APK**: `dexdump` now shows `NavigationEventHandlerKt` carrying
+  `(Lkotlin/jvm/functions/Function0;Lkotlin/jvm/functions/Function2;Landroidx/compose/runtime/Composer;II)V`.
+
 ## 0.1.30
 
 ### Changed — dark cards read as panels
